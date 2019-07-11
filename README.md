@@ -3,23 +3,28 @@ NOTES FOR ORCINUS ADMINISTRATION
 ---------------------------------
 
 DOCUMENTATION: elder1.westgrid.ca ---> ssh orca1 ---> cd /orcinus/documentation
+
 Roman cell:   604-822-4727
 Roman office: 604-221-4830
 
 Connect to: 
 elder1.westgrid.ca -----> LDAP (Authentication server). Replica of westgrid LDAP server at SFU (www.portal.westgrid.ca), updated every 6 hours.
+
 OR
 elder2.westgrid.ca -----> MOAB (Job scheduler). Talks with resource manager (TORQUE) on orca2 to queue jobs.
+
 
 From elder headnodes only, can connect on infiniband network to:
 orca1 -----> Provisioning (images nodes). Backup file manager.
 orca2 -----> Runs TORQUE (Resource manager - queries alle nodes, gets info about available resources). Runs main file manager.
+
 
 User headnodes for orcinus.westrgid.ca:
     seawolf1.westgrid.ca
     seawolf2.westgrid.ca
     seawolf3.westgrid.ca
     Connect directly to one of the above if orcinus.westrgid.ca is not responding.
+
 
 TORQUE (Resource Manager) COMMANDS:
 qsub ---> Shows info about who is queued
@@ -28,20 +33,24 @@ qsort -c ----> Shows what jobs are running where (what nodes, etc.)
 pbsnodes -ln ----> Shows which nodes are down
 pbsnodes -a [nodename] -----> Shows info about a particular node
 
+
 MOAB (Scheduler) COMMANDS:
 showq -r ----> Currently running jobs
 showq -i ----> Currently idle jobs
 showq -b ----> Currently blocked jobs
 showq -b | grep -v Idle -----> Shows if there are problems with any jobs.
 
+
 Lustre (Filesystem) COMMANDS:
 lfs check servers | grep -v active ----> Check filesystem nodes are responding.
+
 
 Group Priority:
     Each group has 2% fairshare target using the fairshare algorithm.
     2% fairshare is approximately 20 cores all the time
     ndiag -P (admin only)
-    Patey group is aqd-930-aa and aqd-93-ae
+    Patey group: aqd-930-aa and aqd-93-ae
+
 
 ---------------------------------
 Clean shutdown and Startup
