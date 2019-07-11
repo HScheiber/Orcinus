@@ -5,24 +5,23 @@ NOTES FOR ORCINUS ADMINISTRATION
 -   Roman cell:   604-822-4727
 -   Roman office: 604-221-4830
 
+
 Administator nodes: 
 
 -   elder1.westgrid.ca -----> LDAP (Authentication server). Replica of westgrid LDAP server at SFU (www.portal.westgrid.ca), updated every 6 hours.
-
 -   elder2.westgrid.ca -----> MOAB (Job scheduler). Talks with resource manager (TORQUE) on orca2 to queue jobs.
 
 
 From elder headnodes only, can connect on infiniband network to:
 -   orca1 -----> Provisioning (images nodes). Backup file manager.
-
 -   orca2 -----> Runs TORQUE (Resource manager - queries alle nodes, gets info about available resources). Runs main file manager.
 
 
 User headnodes for orcinus.westrgid.ca:
-    * seawolf1.westgrid.ca
-    * seawolf2.westgrid.ca
-    * seawolf3.westgrid.ca
-    * Connect directly to one of the above if orcinus.westrgid.ca is not responding.
+-   seawolf1.westgrid.ca
+-   seawolf2.westgrid.ca
+-   seawolf3.westgrid.ca
+-   Connect directly to one of the above if orcinus.westrgid.ca is not responding.
 
 
 TORQUE (Resource Manager) COMMANDS:
