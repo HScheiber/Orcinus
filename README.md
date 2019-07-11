@@ -86,6 +86,8 @@ MCS are the controllers for the rack cooling systems
 Accessible from the interactive lights out (iLO) system from:
     ssh elder1 -X ---> ssh orca2 -X ---> firefox & ---> http://mcs5 , http://mcs6 , ... , http://mcs10
     6 MCS units found on iLO system
+    Username: Admin
+    Password: iloadmin
 
 MCS 6
 MCS 7
@@ -93,13 +95,21 @@ MCS 8
 MCS 9 ----> The rack in the back of the room with previously broken air temperature sensor (constantly detected 4 degrees C)
 MCS 10 ----> The first rack in the back of the room with fan 5/6 not working.
 
+---------------------------------
+INTERACTIVE LIGHTS OUT (iLO) SYSTEM
+---------------------------------
+
+Can connect directly to (almost?) all hardware in orcinus through the HP interactive lights out system.
+To connect to server packs:
+    ssh elder1 -X ---> ssh orca2 -X ---> firefox & ---> https://pack1 , https://pack2 , ...
+    Note: Requires X11 server on client side.
+
 
 ---------------------------------
 HARDWARE
 ---------------------------------
 First 12 chassis have 256 cores each.
 Others have 384 cores each.
-
 
 
 ---------------------------------
