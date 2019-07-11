@@ -13,7 +13,7 @@ Administator nodes:
 
 From elder headnodes only, can connect on infiniband network to:
 -   orca1 -----> Provisioning (images nodes). Backup file manager.
--   orca2 -----> Runs TORQUE (Resource manager - queries alle nodes, gets info about available resources). Runs main file manager.
+-   orca2 -----> Runs TORQUE (Resource manager - queries all nodes, gets info about available resources). Runs main file manager.
 
 
 User headnodes for orcinus.westrgid.ca:
