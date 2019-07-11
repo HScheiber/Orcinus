@@ -6,8 +6,7 @@ NOTES FOR ORCINUS ADMINISTRATION
 -   Roman office: 604-221-4830
 
 
-Administator nodes: 
-
+Administator nodes:
 -   elder1.westgrid.ca -----> LDAP (Authentication server). Replica of westgrid LDAP server at SFU (www.portal.westgrid.ca), updated every 6 hours.
 -   elder2.westgrid.ca -----> MOAB (Job scheduler). Talks with resource manager (TORQUE) on orca2 to queue jobs.
 
@@ -25,35 +24,35 @@ User headnodes for orcinus.westrgid.ca:
 
 
 TORQUE (Resource Manager) COMMANDS:
-qsub ---> Shows info about who is queued
-qsort -s ----> Shows who is queuing.
-qsort -c ----> Shows what jobs are running where (what nodes, etc.)
-pbsnodes -ln ----> Shows which nodes are down
-pbsnodes -a [nodename] -----> Shows info about a particular node
+-   `qsub` ---> Shows info about who is queued
+-   `qsort -s` ----> Shows who is queuing.
+-   `qsort -c` ----> Shows what jobs are running where (what nodes, etc.)
+-   `pbsnodes -ln` ----> Shows which nodes are down
+-   `pbsnodes -a [nodename]` -----> Shows info about a particular node
 
 
 MOAB (Scheduler) COMMANDS:
-showq -r ----> Currently running jobs
-showq -i ----> Currently idle jobs
-showq -b ----> Currently blocked jobs
-showq -b | grep -v Idle -----> Shows if there are problems with any jobs.
+-   `showq -r` ----> Currently running jobs
+-   `showq -i` ----> Currently idle jobs
+-   `showq -b` ----> Currently blocked jobs
+-   `showq -b | grep -v Idle` -----> Shows if there are problems with any jobs.
 
 
 Lustre (Filesystem) COMMANDS:
-lfs check servers | grep -v active ----> Check filesystem nodes are responding.
+-   `lfs check servers | grep -v active` ----> Check filesystem nodes are responding.
 
 
 Group Priority:
-    Each group has 2% fairshare target using the fairshare algorithm.
-    2% fairshare is approximately 20 cores all the time
-    ndiag -P (admin only)
-    Patey group: aqd-930-aa and aqd-93-ae
+-   Each group has 2% fairshare target using the fairshare algorithm.
+-   2% fairshare is approximately 20 cores all the time
+-   ndiag -P (admin only)
+-   Patey group: aqd-930-aa and aqd-93-ae
 
 
 Clean shutdown and Startup
 ==============================
 
-init O = shut down
+`init O` ----> shut down
 
 1. Shut down all filesystem servers: MDS1, MDS2, OSS1, ... , OSS6
 
@@ -66,16 +65,16 @@ Do reverse process when starting up
 Controller
 ==============================
 To access:
-    1. ssh elder1.westgrid.ca
-    2. ssh orca2
-    3. ssh user@mobydick1
-        password is user
+    1. `ssh elder1.westgrid.ca`
+    2. `ssh orca2`
+    3. `ssh user@mobydick1`
+        password is `user`
 
 Commands:
-    show sub fault ----> Shows any faulty discs
-    show pd ----> Shows physical disks
-    show vd ----> Shows virtual disksshow 
-    show pool (0 - 59)
+    `show sub fault` ----> Shows any faulty discs
+    `show pd` ----> Shows physical disks
+    `show vd` ----> Shows virtual disksshow 
+    `show pool [0 - 59]` ----> ??
 
 
 COOLING SYSTEM
@@ -84,35 +83,38 @@ COOLING SYSTEM
 Business Continuity Management (BCM) system automatically sends out texts if the temperature of orcinus is rising.
 Contact UBC plant ops to be added to this list.
 
-If the server room overheats, ALL breakers must be shut down ASAP.
+-   If the server room overheats, ALL breakers must be shut down ASAP.
 
 MCS = MODULAR COOLING SYSTEM.
-MCS are the controllers for the rack cooling systems
-Accessible from the interactive lights out (iLO) system from:
-    ssh elder1 -X ---> ssh orca2 -X ---> firefox & ---> http://mcs5 , http://mcs6 , ... , http://mcs10
-    6 MCS units found on iLO system
-    Username: Admin
-    Password: iloadmin
+-   MCS are the controllers for the rack cooling systems
 
-MCS 6
-MCS 7
-MCS 8
-MCS 9 ----> The rack in the back of the room with previously broken air temperature sensor (constantly detected 4 degrees C)
-MCS 10 ----> The first rack in the back of the room with fan 5/6 not working.
+MCS accessible from the interactive lights out (iLO) system:
+-   `ssh elder1 -X` ---> `ssh orca2 -X` ---> `firefox &` ---> In the firefox browser: `http://mcs5` , `http://mcs6` , ... , `http://mcs10`
+-   6 MCS units found on iLO system
+-   Username: `Admin`
+-   Password: `iloadmin`
+
+
+-   MCS 6
+-   MCS 7
+-   MCS 8
+-   MCS 9 ----> The rack in the back of the room with previously broken air temperature sensor (constantly detected 4 degrees C)
+-   MCS 10 ----> The first rack in the back of the room with fan 5/6 not working.
 
 INTERACTIVE LIGHTS OUT (iLO) SYSTEM
 ==============================
 
 Can connect directly to (almost?) all hardware in orcinus through the HP interactive lights out system.
 To connect to server packs:
-    ssh elder1 -X ---> ssh orca2 -X ---> firefox & ---> https://pack1 , https://pack2 , ...
+    `ssh elder1 -X` ---> `ssh orca2 -X` ---> `firefox &` ---> `https://pack1` , `https://pack2` , ...
     Note: Requires X11 server on client side.
+    For windows, download [xming](https://sourceforge.net/projects/xming/).
 
 
 HARDWARE
 ==============================
-First 12 chassis have 256 cores each.
-Others have 384 cores each.
+-   First 12 chassis (old style) have 256 cores each.
+-   Others have 384 cores each.
 
 
 FILESYSTEM
@@ -120,32 +122,33 @@ FILESYSTEM
 Roman: "Maintaining stability of the filesystem is paramount!"
 
 
-LUSTRE - mounted on orca2 and compute nodes. Connected to SFA1000 (??). Filesystem split beteween metadata (MDT) and data object storage server (OSS) nodes.
+LUSTRE - mounted on orca2 and compute nodes. Connected to SFA1000 (??). Filesystem split beteween metadata servers (MDS) and data object storage server (OSS) nodes.
 4 Separate filesystems:
-    /global/home
-    /global/scratch
-    /global/scratchb
-    ?? (Insert 4th here) ??
+-   `/global/home`
+-   `/global/scratch`
+-   `/global/scratchb`
+-   ?? (Insert 4th here) ??
 
-MDT Server:
-    MDT server provides a description of the filesystem. Stores filenames, directories, permissions, and file layout.
-    MDT data stored in a local disk filesystem.
-    MDT server is only involved in pathname and permission checks, not involved in any file input/output operations.
-    2 MDT servers for redundancy:
-    MSD1.westgrid.ca
-    MSD2.westgrid.ca
+Meta Data Servers:
+-   MDS provides a description of the filesystem. Stores filenames, directories, permissions, and file layout.
+-   Meta Data Target (MDT) data stored in a local disk filesystem.
+-   MDS is only involved in pathname and permission checks, not involved in any file input/output operations.
+
+Two MDS for redundancy:
+-   `MSD1.westgrid.ca`
+-   `MSD2.westgrid.ca`
 
 Object Storage Servers:
-    6 OSS servers which directly access the user data.
-    Object storage server nodes store file data on one or more object storage target (OST) devices.
-    Capacity of the filesystem is simply the sum of capabilities of all OST's.
-    Clients access and use the data on a unified namespace for all of the files and data.
-    OSS1.westgrid.ca
-    OSS2.westgrid.ca
-    OSS3.westgrid.ca
-    OSS4.westgrid.ca
-    OSS5.westgrid.ca
-    OSS6.westgrid.ca (Dead?)
+-   6 OSS servers which directly access the user data.
+-   Object storage server nodes store file data on one or more object storage target (OST) devices.
+-   Capacity of the filesystem is simply the sum of capabilities of all OST's.
+-   Clients access and use the data on a unified namespace for all of the files and data.
+-   OSS1.westgrid.ca
+-   OSS2.westgrid.ca
+-   OSS3.westgrid.ca
+-   OSS4.westgrid.ca
+-   OSS5.westgrid.ca
+-   OSS6.westgrid.ca (Dead?)
 
 Client Accessing a File:
     1. Filename lookup on MDS
@@ -157,12 +160,15 @@ Client Accessing a File:
 NETWORKS
 ==============================
 
-Infiniband (IB) fabric: connects Lustre filesystem, compute nodes, login nodes.
-Uses two huge switches.
-Needs to be maintained with fabric manager.
-United Fabric Manager (UFM) runs in "high availability mode" on both orca1 and orca2.
-Connected directly to internet (even compute nodes).
+-   Infiniband (IB) fabric: connects Lustre filesystem, compute nodes, login nodes.
+-   Uses two huge switches.
+-   Needs to be maintained with fabric manager.
+-   United Fabric Manager (UFM) runs in "high availability mode" on both orca1 and orca2.
+-   Connected directly to internet (even compute nodes).
 
 SPECIAL NODES
 ==============================
-zodiac.westgrid.ca -----> Data transfer node (DTN). GLOBUS file system transfer node.
+- `zodiac.westgrid.ca` -----> Data transfer node (DTN). GLOBUS file system transfer node.
+
+
+<a href="#top">Back to top</a>
