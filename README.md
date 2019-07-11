@@ -65,10 +65,9 @@ Do reverse process when starting up
 Controller
 ==============================
 To access:
-    1. `ssh elder1.westgrid.ca`
-    2. `ssh orca2`
-    3. `ssh user@mobydick1`
-        password is `user`
+1. `ssh elder1.westgrid.ca`
+2. `ssh orca2`
+3. `ssh user@mobydick1` (password is `user`)
 
 Commands:
     `show sub fault` ----> Shows any faulty discs
