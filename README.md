@@ -1,6 +1,5 @@
----------------------------------
 NOTES FOR ORCINUS ADMINISTRATION
----------------------------------
+==============================
 
 DOCUMENTATION: elder1.westgrid.ca ---> ssh orca1 ---> cd /orcinus/documentation
 
@@ -58,9 +57,9 @@ Group Priority:
     Patey group: aqd-930-aa and aqd-93-ae
 
 
----------------------------------
 Clean shutdown and Startup
----------------------------------
+==============================
+
 init O = shut down
 
 1. Shut down all filesystem servers: MDS1, MDS2, OSS1, ... , OSS6
@@ -71,9 +70,8 @@ init O = shut down
 
 Do reverse process when starting up
 
----------------------------------
 Controller
----------------------------------
+==============================
 To access:
     1. ssh elder1.westgrid.ca
     2. ssh orca2
@@ -87,9 +85,8 @@ Commands:
     show pool (0 - 59)
 
 
----------------------------------
 COOLING SYSTEM
----------------------------------
+==============================
 
 Business Continuity Management (BCM) system automatically sends out texts if the temperature of orcinus is rising.
 Contact UBC plant ops to be added to this list.
@@ -110,9 +107,8 @@ MCS 8
 MCS 9 ----> The rack in the back of the room with previously broken air temperature sensor (constantly detected 4 degrees C)
 MCS 10 ----> The first rack in the back of the room with fan 5/6 not working.
 
----------------------------------
 INTERACTIVE LIGHTS OUT (iLO) SYSTEM
----------------------------------
+==============================
 
 Can connect directly to (almost?) all hardware in orcinus through the HP interactive lights out system.
 To connect to server packs:
@@ -120,16 +116,14 @@ To connect to server packs:
     Note: Requires X11 server on client side.
 
 
----------------------------------
 HARDWARE
----------------------------------
+==============================
 First 12 chassis have 256 cores each.
 Others have 384 cores each.
 
 
----------------------------------
 FILESYSTEM
----------------------------------
+==============================
 Roman: "Maintaining stability of the filesystem is paramount!"
 
 
@@ -167,16 +161,15 @@ Client Accessing a File:
     4. Client then locks the file range being operated on and executes one or more parallel read or write operations directly on the OSS nodes.
     This system eliminates the bottlenecks for client to OSS communications.
 
----------------------------------
 NETWORKS
----------------------------------
+==============================
+
 Infiniband (IB) fabric: connects Lustre filesystem, compute nodes, login nodes.
 Uses two huge switches.
 Needs to be maintained with fabric manager.
 United Fabric Manager (UFM) runs in "high availability mode" on both orca1 and orca2.
 Connected directly to internet (even compute nodes).
 
----------------------------------
 SPECIAL NODES
----------------------------------
+==============================
 zodiac.westgrid.ca -----> Data transfer node (DTN). GLOBUS file system transfer node.
