@@ -1,20 +1,9 @@
 NOTES FOR ORCINUS ADMINISTRATION
 ==============================
 
--   DOCUMENTATION: elder1.westgrid.ca ---> ssh orca1 ---> cd /orcinus/documentation
+-   All kinds of documentation: elder1.westgrid.ca ---> ssh orca1 ---> cd /orcinus/documentation
 -   Roman cell:   604-822-4727
 -   Roman office: 604-221-4830
-
-
-Administator nodes:
--   elder1.westgrid.ca -----> LDAP (Authentication server). Replica of westgrid LDAP server at SFU (www.portal.westgrid.ca), updated every 6 hours.
--   elder2.westgrid.ca -----> MOAB (Job scheduler). Talks with resource manager (TORQUE) on orca2 to queue jobs.
-
-
-From elder headnodes only, can connect on infiniband network to:
--   orca1 -----> Provisioning (images nodes). Backup file manager.
--   orca2 -----> Runs TORQUE (Resource manager - queries all nodes, gets info about available resources). Runs main file manager.
-
 
 User headnodes for orcinus.westrgid.ca:
 -   seawolf1.westgrid.ca
@@ -31,49 +20,121 @@ TORQUE (Resource Manager) COMMANDS:
 -   `pbsnodes -a [nodename]` -----> Shows info about a particular node
 
 
-MOAB (Scheduler) COMMANDS:
--   `showq -r` ----> Currently running jobs
--   `showq -i` ----> Currently idle jobs
--   `showq -b` ----> Currently blocked jobs
--   `showq -b | grep -v Idle` -----> Shows if there are problems with any jobs.
-
-
-Lustre (Filesystem) COMMANDS:
--   `lfs check servers | grep -v active` ----> Check filesystem nodes are responding.
-
-
 Group Priority:
 -   Each group has 2% fairshare target using the fairshare algorithm.
 -   2% fairshare is approximately 20 cores all the time
--   ndiag -P (admin only)
+-   `ndiag -P` (admin only)
 -   Patey group: aqd-930-aa and aqd-93-ae
 
 
-Clean shutdown and Startup
+Basic Nodes and Their Functions
 ==============================
 
-`init O` ----> shut down
+For these nodes, appending .ibb to their names references the nodes via the
+IB fabric, while appending .admin through the administrative network.  So,
+ssh orca1.admin logs you into orca1 over the administrative network rather
+than the regular user network.  Adding .console accesses the management network
+on which sites the ILO cards and other access to controlling elements of
+various cluster components.  For security reasons, this latter network is only
+accessible from certain nodes, like orca1 and orca2. 
 
-1. Shut down all filesystem servers: MDS1, MDS2, OSS1, ... , OSS6
+orca1 and orca2 can be reached only from within the network. Use elder[1,2] and ssh tunnel.
 
-2. Shut down data storage controller 2nd: SHUTDOWN
+orca1
+-   provisioning (CMU?), backup manager, httpd, sendmail, dhcp
+-   syslog host (all in /var/log and subdirectories thereof)
 
-3. Shut down discs
+orca2
+-   scheduling resource manager (torque) and file manager, sendmail
+-   license manager, httpd
+
+
+-   orca[1,2] redundantly manage IB fabric (UFM - United Fabric Manager)
+-   have a heartbeat that monitors this.
+-   are ntp servers for the compute nodes (they synchronize to elder[1,2])
+
+Administator servers:
+-------------------------
+
+elder1.westgrid.ca
+-   authentication (LDAP) www.portal.westgrid.ca connected to database
+-   Replica of westgrid LDAP server at SFU (www.portal.westgrid.ca), updated every 6 hours.
+-   denyhosts service, pop3, imap, httpd
+-   doesn't have /global/software, /global/system, or any Lustre
+-   filesystems mounted (is there a reason for that?)
+
+elder2.westgrid.ca
+-   job scheduling (MOAB). Talks with resource manager (TORQUE) on orca2 to queue jobs.
+-   denyhosts service, sendmail
+
+
+-   elder[1,2] are outward facing servers
+-   are ntp servers for orca[1,2] and then into the rest of the cluster
+-   ntp (synchronized to time.nrc.ca and ntp1.ubc.ca)
+
+
+MDS:
+-------------------------
+
+mds[1,2] - metadata servers for Lustre filesystem.
+
+  mds - virtual IP for NFS mounting of filesystems (also called ahab).
+  Be careful here.... interface ib0:1 is the virtual one for ahab and
+  BOTH mds1 and mds2 have this configured.  /global/software and
+  /global/system are exported from /orcinus which is a directory sitting
+  on the same storage pool that holds the metadata.  Thus, both mds1 and
+  mds2 can mount /orcinus.  However, you only want ONE of these to
+  actually serve the /orcinus filesystem.  Right now, that is mds2.
+  If you reboot mds1 and it automatically configures ib0:1, then you'll
+  have 2 different machines serving the same virtual IP, and this will
+  cause NFS to conflict.  In that case, you have to set ib0:1 to DOWN
+  to disable the interface.  Also, it seems that NFS is not configured
+  to start automatically, so if mds2 is rebooted, you need to make sure
+  /orcinus is mounted, and that ib0:1 is UP, and then you start NFS to
+  export everything to the cluster.  THIS STUFF IS IMPORTANT BECAUSE THE
+  CLUSTER WILL NOT WORK PROPERLY IF /global/software and /global/system
+  ARE NOT AVAILABLE.
+
+
+oss[1-6] - object storage servers for Lustre filesystem
+
+mobydick[1,2] - main disk controllers (DDN SFA10000)
+
+seawolf[1-2] - head nodes
+
+podX[a,b]Y 
+
+-   compute node in chassis X and blade Y,
+    The 'a' or 'b' specifies the A or B node (each blade is composed of two nodes).
+
+-   IP addresses for compute nodes follow a regular pattern
+         192.168.abb.ccc with a = 1 for A nodes and 2 for B nodes,
+         bb = chassis number [0-29], and ccc = node number [1-16] for IB,
+         172.16.abb.ccc and 10.1.abb.ccc for admin and console networks.
+         network, 172.16.abb.ccc for admin network.
+-   chasses [0-12] are old blades, housing 8-core nodes
+-   chasses [13-29] are new blades, housing 12-core nodes
+
+
+
+Emergency Shutdown Procedure
+==============================
+
+1. Use `init 0` to shutdown all compute nodes and head nodes.  Turn off breakers.
+2. If room temperature is OK, leave storage and disks up and running.  If not,
+   first shutdown Lustre filesystem (oss and mds servers shutdown) then turn
+   off the storage controllers, then shut down the disks.
+3. The storage components and switches are under UPS power so should survive
+   short power outages.  So, unless the temperature in the room requires it,
+   they can be kept up and running.  The compute nodes generate most of the
+   heat in the room.
+4. Open up the secret vent if added airflow is needed on an emergency basis.
+5. Alert Plant Ops if the chiller doesn't seem to be coming back on.
+6. Website for temperature of cluster over time:
+
+   https://elder1.westgrid.ca/room_temps
 
 Do reverse process when starting up
-
-Controller
-==============================
-To access:
-1. `ssh elder1.westgrid.ca`
-2. `ssh orca2`
-3. `ssh user@mobydick1` (password is `user`)
-
-Commands:
-    `show sub fault` ----> Shows any faulty discs
-    `show pd` ----> Shows physical disks
-    `show vd` ----> Shows virtual disksshow 
-    `show pool [0 - 59]` ----> ??
 
 
 COOLING SYSTEM
@@ -121,17 +182,69 @@ FILESYSTEM
 Roman: "Maintaining stability of the filesystem is paramount!"
 
 
+Lustre filesystem works by separating metadata and data.  Metadata (that is,
+creation and modification times, owners, permissions, etc. of files) is stored
+on fast storage and served by MDT servers (called mds1 and mds2).  These are
+redundant so if one fails the other can take over the other's job.  When
+filesystems are mounted, it is from the mds's that the filesystem is served
+since this contains all the information that constructs the filesystem itself.
+When you type ls -l the information you see comes from the metadata servers.
+So a slow ls -l response indicates heavy load on the mds servers.
+
+Once you want the contents of a file (for writing or reading) the mds servers
+tell the nodes the locations of the data for a file.  The actual file contents
+are stored separately on OST servers (oss1-6).  These servers are directly
+connected with the main storage controllers and return the file contents as
+requested.  Files may be split over multiple OSTs (called striping) so that
+in principle, all 6 servers could be simultaneously returning different parts
+of the file.  This makes the filesystem parallel and increases responsiveness,
+especially for large files.  If reading or writing a file is slow, it might
+be because the oss's are heavily loaded.  In principle, there is redundancy
+among the oss's but this is not automated.  So, different OSTs have to be
+manually mounted and unmounted.
+
+Commands for monitoring and diagnosing filesystem issues:
+
+1. Check loads on oss and mds servers with top or w.  If high, indicates heavy
+   demand from cluster.
+
+2. `lfs check servers [| grep -v active]`
+
+   (gives a listing of all OST and MDT - all entries should say "active".  If
+    any are inactive then it indicates a failed oss or mds server)
+
+3. If oss and mds servers look OK, and things are showing as active, then it
+   may be a problem with the storage controllers themselves.  To check this
+   you need to login to the controllers (mobydick[1,2]) and diagnose further.
+
+4. If oss or mds are not responding, rebooting is probably a good first thing
+   to try.
+
+5. When starting the filesystem after a power failure or other catastrophic
+   event, first make sure the disks are spinning and everything looks ready
+   on the controllers.  Then start the mds and oss servers (in that order?).
+   Do we have to manually mount the OSTs on the osses?  What is the name of
+   the script for doing that?  Only after everything is ready on the oss and
+   mds servers do you then reboot the nodes (which in turn will mount the
+   Lustre filesystem on them).
+
+6. Lustre is fairly good at recovering from events and will expel nodes that
+   have issues.  So, unless drastic action is needed, it shouldn't be necessary
+   to reboot Lustre entirely for most problems.
+
+7. On the controllers (ssh user@mobydick1 from orca2, password user), the
+   following commands can help examine things:
+-   `show sub fault`
+-   `show pd` (physical disks)
+-   `show vd` (virtual disks)
+-   `show pool (0-59)`
+
 LUSTRE - mounted on orca2 and compute nodes. Connected to SFA1000 (??). Filesystem split beteween metadata servers (MDS) and data object storage server (OSS) nodes.
 4 Separate filesystems:
 -   `/global/home`
 -   `/global/scratch`
 -   `/global/scratchb`
 -   ?? (Insert 4th here) ??
-
-Meta Data Servers:
--   MDS provides a description of the filesystem. Stores filenames, directories, permissions, and file layout.
--   Meta Data Target (MDT) data stored in a local disk filesystem.
--   MDS is only involved in pathname and permission checks, not involved in any file input/output operations.
 
 Two MDS for redundancy:
 -   `MSD1.westgrid.ca`
@@ -156,7 +269,7 @@ Client Accessing a File:
     4. Client then locks the file range being operated on and executes one or more parallel read or write operations directly on the OSS nodes.
     This system eliminates the bottlenecks for client to OSS communications.
 
-NETWORKS
+NETWORK
 ==============================
 
 -   Infiniband (IB) fabric: connects Lustre filesystem, compute nodes, login nodes.
@@ -164,6 +277,61 @@ NETWORKS
 -   Needs to be maintained with fabric manager.
 -   United Fabric Manager (UFM) runs in "high availability mode" on both orca1 and orca2.
 -   Connected directly to internet (even compute nodes).
+
+
+196.182.xxx.xxx - IB fabric (available everywhere) [.ibb]
+172.16.xxx.xxx	- administration GigE network (available everywhere) [.admin]
+10.1.xxx.xxx	- console GigE network (available from orca[1,2]) [.console]
+206.12.24.16[1-5,9] - WestGrid external network
+
+mcs[5-10].console	- rack MCS management cards
+squidups.console	- UPS Management Port
+squid*		- Rack PDU Management Cards
+sonar*		- Switch Management Ports
+pack?		- Chassis Onboard Administrators
+
+Use UFM to monitor IB fabric.  Usually the gigabit fabrics are problem free.
+Lights on the switches and on the network cards can also be checked to see
+whether any "bad" lights are showing.
+
+`ndiag -P`
+
+
+Queuing System
+==============================
+
+Job queuing has two components: torque and moab.
+
+Torque monitors all the jobs on the nodes, starts and stop them, and keeps 
+track of them while they are running.  This is done by communicating with
+pbs_mom processed running on each node.  These daemons are in contact with the
+main torque server and report information.  This is now torque knows the loads
+on each node, what is running there, etc..  So, if the pbs_mom daemons die,
+the nodes will be invisible to torque and any jobs running there will no
+longer be actively monitored.  However, such jobs can still be running even
+though the pbs_mom has died.  If torque dies, jobs can't be monitored or
+started.
+
+Moab is in control of job scheduling.  It looks at all the jobs in the queue
+and through algorithms, decides which jobs should run next.  It does this by
+scanning the queue, matching job requirements with node availability, and
+weighting with fairshare targets.  Moab then tells torque which jobs to run.
+If moab isn't running, 
+
+Commands to monitor queuing system
+
+1. `qsort -s` (summary of running jobs)
+2. `qsort -c` (status of chasses)
+3. `pbsnodes -ln` (info about downed nodes)
+4. `pbsnodes -a <nodename>`
+5. `showq -r` (running jobs)
+6. `showq -i` (idle jobs)
+7. `showq -b` (blocked jobs)
+8. `showq -b|grep -v Idle` (shows problems with jobs)
+
+`showq` is in /global/system/moab/bin/ as well as other useful commands like
+`mstats`, `mshow`, `mdiag`?
+
 
 SPECIAL NODES
 ==============================
