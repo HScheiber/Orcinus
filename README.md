@@ -337,6 +337,34 @@ SPECIAL NODES
 ==============================
 - `zodiac.westgrid.ca` -----> Data transfer node (DTN). GLOBUS file system transfer node.
 
+How to Configure New Nodes
+==============================
+
+Follow these steps when node components have been replaced in order to insure proper uptake into the network. BIOS configuration will require the default password of 
+
+1. Login into orca2 with X and open firefox: 'ssh <adminusername>@elder1.westgrid.ca -X' ---> 'ssh orca2 -X' ---> 'firefox &'
+
+2. In firefox, go the chassis containing the blade in question: 'https://pack<#>' and click `add exception`. Login to ILO. 
+- Username: 'admin' 
+- Password: 'iloadmin'
+
+3. Click on `Device Bays` on the side panel and find the node in question. If it does not have a proper node name (i.e. podX[a|b]Y) then it needs to be reconfigured. Click on the blade name ---> `iLo` ---> `Web Administation` to access the blade.
+
+4. Click on the `Administration` tab. If the blade does not currently have firmware version 2.23 or higher, it must be updated. A version 2.23 firmware image is located in `/tmp/ILO/ilo2_223.bin`. Click `Browse...` and find this file, then `Send firmware image`. This will load new firmware and reset the ILO. After resetting, you will be logged out of the blade. It is easiest to log back in through the chassis ILO as in step 3.
+
+5. Once you are back into the blade ILO and have confirmed the firmware is version 2.23 or higher, go back to the `Administration` tab and click `User Administration` on the side panel. If user `root` does not exist, add it by clicking `New`. The User Name and Login Name should both be `root` and the password should be the root password if you know it. Otherwise set any old password and tell the head administator to change it later.
+
+6. Go to `Access` under `Settings` in the side panel. Click the `Options` tab. Beside `Server Name:` make sure the node is named `podX[a|b]Y`. `X` = the chassis number, choose `a` if this is an A-blade in a pair or `b` if it is a B-blade. Y = blade number. Click `Apply` after changing the name.
+
+7. Go to the `Services` tab and change `Secure Shell (SSH) Port:` to `30`. Click `Apply`. This will reboot the ILO again. After resetting, log back in as before.
+
+8. Return to the `Administation` tab and click on `Security` under `Settings`. Add the SSH key file from `/tmp/ILO/cluster_id.pub.root` and click `Authorize Key`.
+
+9. Now click on `Network` under `Settings`. Change the `iLO 2 Subsystem Name` to `podX[a|b]Y-ilo` using the same convention as before. Click `Apply`. The ILO will reset, but that is the end of the ILO part of the configuration. You can close the browser tab.
+
+Next the BIOS settings must be configured.
+
+10. TO DO: Complete BIOS setup instructions
 
 
 Nodes Currently Down and Reasons
