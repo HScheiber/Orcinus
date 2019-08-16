@@ -338,4 +338,142 @@ SPECIAL NODES
 - `zodiac.westgrid.ca` -----> Data transfer node (DTN). GLOBUS file system transfer node.
 
 
+
+Nodes Currently Down and Reasons
+==============================
+
+Blade | Status | Notes
+--- | --- | ---
+pod1a2 | down | Unknown
+pod1a6 | down | Unknown
+pod1b8 | down,offline | ILO
+pod2a8 | down,offline | HDA
+pod2b8 | down,offline | HDA
+pod3b11 | down,offline | Investigate
+pod4a2 | offline | Down due to partner node problem
+pod4a3 | offline | MB
+pod4a4 | offline | Down due to partner node problem
+pod4a5 | offline | Power
+pod4a6 | offline | Down due to partner node problem
+pod4a7 | offline | Down due to partner node problem
+pod4a11 | offline | Down due to partner node problem
+pod4a13 | offline | Power
+pod4b2 | offline | Power
+pod4b3 | down,offline | Power
+pod4b4 | offline | Power
+pod4b5 | offline | Power
+pod4b6 | down,offline | Power
+pod4b7 | offline | Power
+pod4b11 | offline | Power
+pod4b12 | offline | ILO
+pod4b13 | down,offline | Power
+pod5a2 | down | Unknown
+pod5a15 | offline | Down due to partner node problem
+pod5b3 | offline | ILO
+pod5b7 | down,offline | ILO
+pod5b15 | down,offline | REPLACE MB
+pod6a9 | offline | Down due to partner node problem
+pod6a15 | offline | Down due to partner node problem
+pod6b9 | down,offline | REPLACE MB
+pod6b11 | down | Unknown
+pod6b14 | down | Unknown
+pod6b15 | down,offline | HDA
+pod6b16 | down | seems_ok
+pod7a6 | down | Unknown
+pod7a12 | down | Unknown
+pod7b6 | down | Unknown
+pod8a7 | offline | Down due to partner node problem
+pod8a9 | offline | Down due to partner node problem
+pod8a13 | offline | Down due to partner node problem
+pod8b7 | down,offline | REPLACE MB
+pod8b9 | down,offline | REPLACE MB
+pod8b13 | offline | MBA_power
+pod9a1 | down,offline | HDA
+pod9b1 | offline | Down due to partner node problem
+pod9b11 | down,offline | ILO
+pod10a7 | offline | IB-hda-rebuild
+pod10a8 | offline | Down due to partner node problem
+pod10a9 | offline | Down due to partner node problem
+pod10a11 | offline | Down due to partner node problem
+pod10a13 | offline | Down due to partner node problem
+pod10b8 | down,offline | REPLACE MB
+pod10b9 | offline | power_RB_REPLACE MB
+pod10b11 | down,offline | HDA_tmp
+pod10b13 | down,offline | HDA
+pod11a6 | down | Unknown
+pod11a11 | offline | Down due to partner node problem
+pod11b1 | down | Unknown
+pod11b11 | down,offline | Power_issue_MB
+pod11b15 | offline | ILO_?
+pod12a3 | down,offline | ILO_?
+pod12a10 | down,offline | ILO_?
+pod12a12 | down | Unknown
+pod12b6 | down,offline | MB_RB
+pod12b9 | down | Unknown
+pod12b13 | down | Unknown
+pod13b1 | down | Unknown
+pod13b6 | down | Unknown
+pod13b7 | down | Unknown
+pod13b10 | down | Unknown
+pod14a9 | down,offline | REPLACE MB
+pod14b9 | offline | Down due to partner node problem
+pod16a2 | down | Unknown
+pod16a3 | offline | Down due to partner node problem
+pod16a5 | offline | Down due to partner node problem
+pod16a6 | offline | Down due to partner node problem
+pod16a9 | offline | Down due to partner node problem
+pod16a13 | offline | Down due to partner node problem
+pod16b1 | down,offline | RETIRED_no_CPU_no_MLX
+pod16b2 | down,offline | RETIRED
+pod16b3 | down,offline | RB_REPLACE MB
+pod16b5 | down,offline | Power_issue_MB
+pod16b6 | down,offline | Investigate
+pod16b9 | down,offline | REPLACE MB
+pod16b13 | down,offline | REPLACE CPU2
+pod17a8 | offline | Down due to partner node problem
+pod17a12 | down | Unknown
+pod17a16 | down | Unknown
+pod17b1 | down | Unknown
+pod17b2 | down | Unknown
+pod17b5 | down | Unknown
+pod17b8 | down,offline | RB_ILO_MB_Power_July1018
+pod17b15 | down | Unknown
+pod18a11 | down | Unknown
+pod18a14 | offline | Down due to partner node problem
+pod18b3 | down | Unknown
+pod18b8 | down | Unknown
+pod18b11 | down | Unknown
+pod18b14 | down,offline | power_RB_REPLACE MB
+pod18b15 | down | Unknown
+pod20b2 | down,offline | ILO_settings
+pod21a2 | down,offline | RB_REPLACE MB ILO-Error
+pod21a8 | down,offline | Down due to partner node problem
+pod21a10 | down,offline | Power_MT
+pod21a13 | down,offline | Down due to partner node problem
+pod21b2 | down,offline | reseat-ILO-Error
+pod21b8 | down,offline | RB_REPLACE MB
+pod21b10 | down,offline | Power_MT
+pod21b13 | down,offline | MB_RB
+pod22a1 | offline | Down due to partner node problem
+pod22a10 | down,offline | Power_MT
+pod22b1 | down,offline | Power_MT
+pod22b10 | offline,job-exclusive | Down due to partner node problem
+pod23a5 | down,offline | Down due to partner node problem
+pod23a11 | down,offline | won't power on
+pod23a16 | down,offline | Down due to partner node problem
+pod23b5 | down,offline | Power_issue_MB
+pod23b11 | down,offline | Down due to partner node problem
+pod23b16 | down,offline | Power_Oct_2018
+pod24a9 | down,offline | Down due to partner node problem
+pod24a12 | down,offline | Down due to partner node problem
+pod24b9 | down,offline | RB_REPLACE MB check
+pod24b12 | down,offline | REPLACE MB MLX
+pod25a3 | down,offline | HDA_MT
+pod25b3 | down,offline | Down due to partner node problem
+pod26a7 | down,offline | Down due to partner node problem
+pod26b7 | down,offline | Looks like a memory or motherboard issue. Upon boot, the node complains about Invalid memory config.
+pod27a3 | down,offline | Down due to partner node problem
+pod27b3 | down,offline | management_card_MT
+
+
 <a href="#top">Back to top</a>
