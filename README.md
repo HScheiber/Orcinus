@@ -5,7 +5,7 @@ Table of Contents
 -------------------
 -   [General](General)
 
--   [Basic Nodes and Their Functions](Basic-Nodes-and-Their-Functions)
+-   [Basic Nodes and Their Functions](https://github.com/HScheiber/Orcinus/blob/master/README.md#Basic-Nodes-and-Their-Functions)
 
 -   [Administator servers](Administator-servers)
 
