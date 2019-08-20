@@ -635,7 +635,7 @@ pod17a16 | down | Unknown
 pod17b1 | down | Unknown
 pod17b2 | down | Unknown
 pod17b5 | down | Unknown
-pod17b8 | down,offline | RB_ILO_MB_Power_July1018
+pod17b8 | down,offline | RB_ILO_MB_Power_July1018. Likely a motherboard issue. Will not power on at all.
 pod17b15 | down | Unknown
 pod18a11 | down | Unknown
 pod18a14 | offline | Down due to partner node problem
@@ -671,8 +671,6 @@ pod25a3 | down,offline | HDA_MT
 pod25b3 | down,offline | Down due to partner node problem
 pod26a7 | down,offline | Down due to partner node problem
 pod26b7 | down,offline | Looks like a memory or motherboard issue. Upon boot, the node complains about Invalid memory config.
-pod27a3 | down,offline | Down due to partner node problem
-pod27b3 | down,offline | management_card_MT
 
 
 <a href="#top">Back to top</a>
