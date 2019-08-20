@@ -364,7 +364,122 @@ Follow these steps when node components have been replaced in order to insure pr
 
 Next the BIOS settings must be configured.
 
-10. TO DO: Complete BIOS setup instructions
+10. You may use the default administrator password which is shipped with the blade here. From orca2, `ssh Administrator@podX[a|b]Y.console -p 30` and input this password. Otherwise, since you just added another account to the ILO (user   `root`), you can log in with that account. You can also replace `ssh` with `cluster_c` to use for internal access through the administrator network.
+
+11. Once you are into the blade. Type in `power reset` or `power warm` followed quickly by `vsp`. This will reboot the blade and bring you into the virtual serial port. You should see the following:
+
+`Starting virtual serial port.
+Press 'ESC (' to return to the CLI Session.
+
+</>hpiLO-> Virtual Serial Port active: IO=0x03F8 INT=4
+                            24 GB Installed
+
+ProLiant System BIOS - I26 (01/30/2011)
+Copyright 1982, 2011 Hewlett-Packard Development Company, L.P.
+
+
+2 Processor(s) detected, 12 total cores enabled, Hyperthreading is enabled
+Proc 1: Intel(R) Xeon(R) CPU X5650 @ 2.67GHz
+Proc 2: Intel(R) Xeon(R) CPU X5650 @ 2.67GHz
+QPI Speed: 6.4 GT/s
+HP Power Profile Mode: Balanced Power and Performance
+Power Regulator Mode: Dynamic Power Savings
+
+Advanced Memory Protection Mode: Advanced ECC Support
+Redundant ROM Detected - This system contains a valid backup system ROM.
+Inlet Ambient Temperature: 17C/62F
+
+
+                       Press any key to view Option ROM messages
+
+Initializing Intel(R) Boot Agent GE v1.3.32
+PXE 2.1 Build 086 (WfM 2.0)
+
+SATA Option ROM ver 2.00.B12
+Copyright 1982, 2008. Hewlett-Packard Development Company, L.P.
+  Port1: (Hard Disk) GJ0250EAGSQ
+Drive Write Cache Disabled
+Integrated Lights-Out 2 Standard Blade Edition
+iLO 2 v2.23 Nov 05 2013 10.1.227.3
+
+
+Mellanox ConnectX FlexBoot v3.3.500
+iPXE (http://ipxe.org) 03:00.0 6000 PCI3.00 PnP PMM+00A0E800+00A29C00
+ Press "F9" key for ROM-Based Setup Utility
+ Press "F10" key for System Maintenance Menu
+ Press "F11" key for Default Boot Override Options
+ Press "F12" key for Network Boot
+ For access via BIOS Serial Console
+ Press "ESC+9" for ROM-Based Setup Utility
+ Press "ESC+0" for System Maintenance Menu
+ Press "ESC+!" for Default Boot Override Options
+ Press "ESC+@" for Network Boot
+ROM-Based Setup Utility, Version 3.00
+Copyright 1982, 2011 Hewlett-Packard Development Company, L.P.`
+
+At this point, since you cannot directly press `F9` in the virtual serial port, press `Esc` then `9`. If you pressed this at the correct time, you should have entered the ROM-Based Setup Utility (RBSU) and you should see the following:
+
+`Type HELP to display a list of valid commands.
+HELP [<command>|<TREE>] displays detailed information about a given command
+or lists a given TREE of commands.
+
+rbsu>`
+
+From here you can configure the BIOS.
+
+12. Set the Virtual Serial Port by copy-pasting `SET CONFIG VIRTUAL SERIAL PORT 2`. Output:
+`Virtual Serial Port
+1|COM 1; IRQ4; IO: 3F8h-3FFh
+2|COM 2; IRQ3; IO: 2F8h-2FFh <=
+3|COM 3; IRQ5; IO: 3E8h-3EFh
+4|Disabled`
+
+13. Set the thermal shutdown to on: `SET CONFIG THERMAL SHUTDOWN 1`. Output:
+`Thermal Shutdown
+1|Enabled <=
+2|Disabled`
+
+14. Set BIOS Serial Console Port: `SET CONFIG BIOS SERIAL CONSOLE PORT 4`. Output:
+`BIOS Serial Console Port
+1|Auto
+2|Disabled
+3|COM 1; IRQ4; IO: 3F8h-3FFh
+4|COM 2; IRQ3; IO: 2F8h-2FFh <=`
+
+15. Set BIOS Serial Console Baud Rate: `SET CONFIG BIOS SERIAL CONSOLE BAUD RATE 1`. Output:
+`BIOS Serial Console Baud Rate
+1|9600 <=
+2|19200
+3|57600
+4|115200`
+
+16. If you are replacing one of the older blades, this step can be ignored. Set Intel(R) Hyperthreading Options: `SET CONFIG INTEL(R) HYPERTHREADING OPTIONS 2`. Output:
+`Intel(R) Hyperthreading Options
+1|Enabled
+2|Disabled <=`
+
+17. If you are replacing one of the older blades, this step can be ignored. Set Power-On Logo: `SET CONFIG POWER-ON LOGO 2`. Output:
+`Power-On Logo
+1|Enabled
+2|Disabled <=`
+
+18. Set Drive Write Cache: `SET CONFIG DRIVE WRITE CACHE 1`. Output:
+`Drive Write Cache
+1|Enabled <=
+2|Disabled`
+
+19. Set the boot order. Make sure that the output here is the same as shown below. This may take several commands. `SET IPL PXE 4`
+Output:
+`1| CD-ROM
+2| Floppy Drive (A:)
+3| USB DriveKey (C:)
+4| PCI Embedded HP NC382i PCIe DP Multifunction 1Gb Adapter Port 1
+5| Hard Drive C: (See Boot Controller Order)`
+
+20. Set Date and Time: `SET DATE mm/dd/yy`. Output: `mm/dd/yy`.
+`SET TIME hh:mm`. Output: `hh:mm`.
+
+21. Type the following to save and exit: `EXIT`. If you do not wish to save, press `QUIT`.
 
 
 Nodes Currently Down and Reasons
