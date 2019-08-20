@@ -500,8 +500,9 @@ Output:
 20. Set Date and Time: `SET DATE mm/dd/yy`. Output: `mm/dd/yy`.
 `SET TIME hh:mm`. Output: `hh:mm`.
 
-21. Type the following to save and exit: `EXIT`. If you do not wish to save, press `QUIT`.
+21. Type the following to save and exit: `EXIT`. If you do not wish to save, press `QUIT`. This will take you out of the RSBU and cause an automatic reboot (as long as you changed some settings).
 
+To see an example of the output from a normal (new-style) node booting up, [click here](Node_Startup.txt "Node Startup"). 
 
 Nodes Currently Down and Reasons
 ==============================
