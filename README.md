@@ -376,11 +376,11 @@ How to Configure New Nodes
 
 Follow these steps when node components have been replaced in order to insure proper uptake into the network. BIOS configuration will require the default password of 
 
-1. Login into orca2 with X and open firefox: 'ssh <adminusername>@elder1.westgrid.ca -X' ---> 'ssh orca2 -X' ---> 'firefox &'
+1. Login into orca2 with X and open firefox: `ssh <adminusername>@elder1.westgrid.ca -X` ---> `ssh orca2 -X` ---> `firefox &`
 
-2. In firefox, go the chassis containing the blade in question: 'https://pack<#>' and click `add exception`. Login to ILO. 
-- Username: 'admin' 
-- Password: 'iloadmin'
+2. In firefox, go the chassis containing the blade in question: `https://pack<#>` and click `add exception`. Login to ILO. 
+- Username: `admin`
+- Password: `iloadmin`
 
 3. Click on `Device Bays` on the side panel and find the node in question. If it does not have a proper node name (i.e. podX[a|b]Y) then it needs to be reconfigured. Click on the blade name ---> `iLo` ---> `Web Administation` to access the blade.
 
