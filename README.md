@@ -1,6 +1,40 @@
 NOTES FOR ORCINUS ADMINISTRATION
 ==============================
 
+Table of Contents
+-------------------
+-   [General](General)
+
+-   [Basic Nodes and Their Functions](Basic-Nodes-and-Their-Functions)
+
+-   [Administator servers](Administator-servers)
+
+-   [MDS](MDS)
+
+-   [Emergency Shutdown Procedure](Emergency-Shutdown-Procedure)
+
+-   [COOLING SYSTEM](COOLING-SYSTEM)
+
+-   [INTERACTIVE LIGHTS OUT (iLO) SYSTEM](INTERACTIVE-LIGHTS-OUT-iLO-SYSTEM)
+
+-   [HARDWARE](HARDWARE)
+
+-   [FILESYSTEM](FILESYSTEM)
+
+-   [NETWORK](NETWORK)
+
+-   [Queuing System](Queuing-System)
+
+-   [SPECIAL NODES](SPECIAL-NODES)
+
+-   [How to Configure New Nodes](How-to-Configure-New-Nodes)
+
+-   [Nodes Currently Down and Reasons](Nodes-Currently-Down-and-Reasons)
+
+
+General
+==============================
+
 -   All kinds of documentation: elder1.westgrid.ca ---> ssh orca1 ---> cd /orcinus/documentation
 -   Roman cell:   604-822-4727
 -   Roman office: 604-221-4830
