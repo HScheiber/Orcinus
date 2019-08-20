@@ -492,8 +492,9 @@ Output:
 1| CD-ROM
 2| Floppy Drive (A:)
 3| USB DriveKey (C:)
-4| PCI Embedded HP NC382i PCIe DP Multifunction 1Gb Adapter Port 1
+4| PCI Embedded HP NC362i Dual Port BL-c Adapter Port 1
 5| Hard Drive C: (See Boot Controller Order)
+6| PCI Slot 1 Other Network Controller
 ```
 
 20. Set Date and Time: `SET DATE mm/dd/yy`. Output: `mm/dd/yy`.
