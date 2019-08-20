@@ -368,7 +368,8 @@ Next the BIOS settings must be configured.
 
 11. Once you are into the blade. Type in `power reset` or `power warm` followed quickly by `vsp`. This will reboot the blade and bring you into the virtual serial port. You should see the following:
 
-`Starting virtual serial port.
+```
+Starting virtual serial port.
 Press 'ESC (' to return to the CLI Session.
 
 </>hpiLO-> Virtual Serial Port active: IO=0x03F8 INT=4
@@ -415,66 +416,85 @@ iPXE (http://ipxe.org) 03:00.0 6000 PCI3.00 PnP PMM+00A0E800+00A29C00
  Press "ESC+!" for Default Boot Override Options
  Press "ESC+@" for Network Boot
 ROM-Based Setup Utility, Version 3.00
-Copyright 1982, 2011 Hewlett-Packard Development Company, L.P.`
+Copyright 1982, 2011 Hewlett-Packard Development Company, L.P.
+```
 
 At this point, since you cannot directly press `F9` in the virtual serial port, press `Esc` then `9`. If you pressed this at the correct time, you should have entered the ROM-Based Setup Utility (RBSU) and you should see the following:
 
-`Type HELP to display a list of valid commands.
+```
+Type HELP to display a list of valid commands.
 HELP [<command>|<TREE>] displays detailed information about a given command
 or lists a given TREE of commands.
 
-rbsu>`
+rbsu>
+```
 
 From here you can configure the BIOS.
 
 12. Set the Virtual Serial Port by copy-pasting `SET CONFIG VIRTUAL SERIAL PORT 2`. Output:
-`Virtual Serial Port
+```
+Virtual Serial Port
 1|COM 1; IRQ4; IO: 3F8h-3FFh
 2|COM 2; IRQ3; IO: 2F8h-2FFh <=
 3|COM 3; IRQ5; IO: 3E8h-3EFh
-4|Disabled`
+4|Disabled
+```
 
 13. Set the thermal shutdown to on: `SET CONFIG THERMAL SHUTDOWN 1`. Output:
-`Thermal Shutdown
+```
+Thermal Shutdown
 1|Enabled <=
-2|Disabled`
+2|Disabled
+```
 
 14. Set BIOS Serial Console Port: `SET CONFIG BIOS SERIAL CONSOLE PORT 4`. Output:
-`BIOS Serial Console Port
+```
+BIOS Serial Console Port
 1|Auto
 2|Disabled
 3|COM 1; IRQ4; IO: 3F8h-3FFh
-4|COM 2; IRQ3; IO: 2F8h-2FFh <=`
+4|COM 2; IRQ3; IO: 2F8h-2FFh <=
+```
 
 15. Set BIOS Serial Console Baud Rate: `SET CONFIG BIOS SERIAL CONSOLE BAUD RATE 1`. Output:
-`BIOS Serial Console Baud Rate
+```
+BIOS Serial Console Baud Rate
 1|9600 <=
 2|19200
 3|57600
-4|115200`
+4|115200
+```
 
 16. If you are replacing one of the older blades, this step can be ignored. Set Intel(R) Hyperthreading Options: `SET CONFIG INTEL(R) HYPERTHREADING OPTIONS 2`. Output:
-`Intel(R) Hyperthreading Options
+```
+Intel(R) Hyperthreading Options
 1|Enabled
-2|Disabled <=`
+2|Disabled <=
+```
 
 17. If you are replacing one of the older blades, this step can be ignored. Set Power-On Logo: `SET CONFIG POWER-ON LOGO 2`. Output:
-`Power-On Logo
+```
+Power-On Logo
 1|Enabled
-2|Disabled <=`
+2|Disabled <=
+```
 
 18. Set Drive Write Cache: `SET CONFIG DRIVE WRITE CACHE 1`. Output:
-`Drive Write Cache
+```
+Drive Write Cache
 1|Enabled <=
-2|Disabled`
+2|Disabled
+```
 
 19. Set the boot order. Make sure that the output here is the same as shown below. This may take several commands. `SET IPL PXE 4`
 Output:
-`1| CD-ROM
+```
+1| CD-ROM
 2| Floppy Drive (A:)
 3| USB DriveKey (C:)
 4| PCI Embedded HP NC382i PCIe DP Multifunction 1Gb Adapter Port 1
-5| Hard Drive C: (See Boot Controller Order)`
+5| Hard Drive C: (See Boot Controller Order)
+```
 
 20. Set Date and Time: `SET DATE mm/dd/yy`. Output: `mm/dd/yy`.
 `SET TIME hh:mm`. Output: `hh:mm`.
