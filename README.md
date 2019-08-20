@@ -3,33 +3,33 @@ NOTES FOR ORCINUS ADMINISTRATION
 
 Table of Contents
 -------------------
--   [General](General)
+-   [General](https://github.com/HScheiber/Orcinus/blob/master/README.md#General)
 
 -   [Basic Nodes and Their Functions](https://github.com/HScheiber/Orcinus/blob/master/README.md#Basic-Nodes-and-Their-Functions)
 
--   [Administator servers](Administator-servers)
+-   [Administator servers](https://github.com/HScheiber/Orcinus/blob/master/README.md#Administator-servers)
 
--   [MDS](MDS)
+-   [MDS](https://github.com/HScheiber/Orcinus/blob/master/README.md#MDS)
 
--   [Emergency Shutdown Procedure](Emergency-Shutdown-Procedure)
+-   [Emergency Shutdown Procedure](https://github.com/HScheiber/Orcinus/blob/master/README.md#Emergency-Shutdown-Procedure)
 
--   [COOLING SYSTEM](COOLING-SYSTEM)
+-   [COOLING SYSTEM](https://github.com/HScheiber/Orcinus/blob/master/README.md#COOLING-SYSTEM)
 
--   [INTERACTIVE LIGHTS OUT (iLO) SYSTEM](INTERACTIVE-LIGHTS-OUT-iLO-SYSTEM)
+-   [INTERACTIVE LIGHTS OUT (iLO) SYSTEM](https://github.com/HScheiber/Orcinus/blob/master/README.md#INTERACTIVE-LIGHTS-OUT-iLO-SYSTEM)
 
--   [HARDWARE](HARDWARE)
+-   [HARDWARE](https://github.com/HScheiber/Orcinus/blob/master/README.md#HARDWARE)
 
--   [FILESYSTEM](FILESYSTEM)
+-   [FILESYSTEM](https://github.com/HScheiber/Orcinus/blob/master/README.md#FILESYSTEM)
 
--   [NETWORK](NETWORK)
+-   [NETWORK](https://github.com/HScheiber/Orcinus/blob/master/README.md#NETWORK)
 
--   [Queuing System](Queuing-System)
+-   [Queuing System](https://github.com/HScheiber/Orcinus/blob/master/README.md#Queuing-System)
 
--   [SPECIAL NODES](SPECIAL-NODES)
+-   [SPECIAL NODES](https://github.com/HScheiber/Orcinus/blob/master/README.md#SPECIAL-NODES)
 
--   [How to Configure New Nodes](How-to-Configure-New-Nodes)
+-   [How to Configure New Nodes](https://github.com/HScheiber/Orcinus/blob/master/README.md#How-to-Configure-New-Nodes)
 
--   [Nodes Currently Down and Reasons](Nodes-Currently-Down-and-Reasons)
+-   [Nodes Currently Down and Reasons](https://github.com/HScheiber/Orcinus/blob/master/README.md#Nodes-Currently-Down-and-Reasons)
 
 
 General
