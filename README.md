@@ -273,12 +273,12 @@ Commands for monitoring and diagnosing filesystem issues:
 -   `show vd` (virtual disks)
 -   `show pool (0-59)`
 
-LUSTRE - mounted on orca2 and compute nodes. Connected to SFA1000 (??). Filesystem split beteween metadata servers (MDS) and data object storage server (OSS) nodes.
+LUSTRE - mounted on orca2 and compute nodes. Connected to 2x SFA10000 controllers. Filesystem split beteween metadata servers (MDS) and data object storage server (OSS) nodes.
 4 Separate filesystems:
 -   `/global/home`
 -   `/global/scratch`
 -   `/global/scratchb`
--   ?? (Insert 4th here) ??
+-   `/global/data`
 
 Two MDS for redundancy:
 -   `MSD1.westgrid.ca`
@@ -294,7 +294,7 @@ Object Storage Servers:
 -   OSS3.westgrid.ca
 -   OSS4.westgrid.ca
 -   OSS5.westgrid.ca
--   OSS6.westgrid.ca (Dead?)
+-   OSS6.westgrid.ca
 
 Client Accessing a File:
     1. Filename lookup on MDS
