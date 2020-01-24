@@ -548,7 +548,7 @@ pod1a6 | down | Unknown
 pod1b8 | down,offline | ILO
 pod2a8 | down,offline | HDA
 pod2b8 | down,offline | HDA
-pod3b11 | down,offline | Investigate
+pod3b11 | down,offline | Seems to be unresponsive to button presses.
 pod4a2 | offline | Down due to partner node problem
 pod4a3 | offline | MB
 pod4a4 | offline | Down due to partner node problem
