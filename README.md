@@ -31,13 +31,12 @@ Table of Contents
 
 -   [Nodes Currently Down and Reasons](https://github.com/HScheiber/Orcinus/blob/master/README.md#Nodes-Currently-Down-and-Reasons)
 
+-   [How to Configure Replacement Onboard Administators](https://github.com/HScheiber/Orcinus/blob/master/README.md#how-to-configure-replacement-onboard-administators)
 
 General
 ==============================
 
 -   All kinds of documentation: elder1.westgrid.ca ---> ssh orca1 ---> cd /orcinus/documentation
--   Roman cell:   604-822-4727
--   Roman office: 604-221-4830
 
 User headnodes for orcinus.westrgid.ca:
 -   seawolf1.westgrid.ca
@@ -541,13 +540,13 @@ To see an example of the output from a normal (new-style) node booting up, [clic
 How to Configure Replacement Onboard Administators
 ==============================
 
-1. Log into orca2 and access `/tmp/OA_Settings/`
+1. Login to `orca2` and access `/tmp/OA_Settings/`
 
 2. In this folder you'll find the onboard administator configurations used for previous onboard administator replacements.
 
 3. Create a new configuration file such as "Pack##_OA_Settings.cfg". The file name isn't important but make sure the file extension is `.cfg`.
 
-4. Compare the differences in settings between two previous examples. Adjust your new configuration file accordingly. You'll need to set some names and IP addresses for the rack and enclosure. 
+4. Compare the differences in settings between two previous examples. Adjust your new configuration file accordingly. You'll need to set some names and IP addresses for the enclosure, rack, and nodes within. 
 Make sure at least one admin user has access, e.g.
 ```
 #Create Users
@@ -571,7 +570,7 @@ ENABLE USER "admin"
 
 8. b) If you have access to the OA through the local filesystem, then log in through the ILO system. Under "enclosure" find "configuration scripts" and upload your configuration file.
 
-9. Once the configuration is updated, the OA firmware may also need to be updated. Version 4.50 is used on most of our onboard administators. You should now have access to the OA through the ILO system, so log in.
+9. Once the configuration is updated, the OA firmware may also need to be updated. Version 4.50 is used on most of our onboard administators. You should now have access to the OA through the ILO system, so login.
 
 10. Under "Active Onboard Administator", go to "Firmware Update". The firmware files are located in `/tmp/ILO` they are named `hpoa###.bin`.
 
