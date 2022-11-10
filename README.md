@@ -544,7 +544,7 @@ How to Configure Replacement Onboard Administators
 
 2. In this folder you'll find the onboard administator configurations used for previous onboard administator replacements.
 
-3. Create a new configuration file such as "Pack##_OA_Settings.cfg". The file name isn't important but make sure the file extension is `.cfg`.
+3. Create a new configuration file such as `Pack##_OA_Settings.cfg`. The file name isn't important but make sure the file extension is `.cfg`.
 
 4. Compare the differences in settings between two previous examples. Adjust your new configuration file accordingly. You'll need to set some names and IP addresses for the enclosure, rack, and nodes within. 
 Make sure at least one admin user has access, e.g.
@@ -572,7 +572,7 @@ ENABLE USER "admin"
 
 9. Once the configuration is updated, the OA firmware may also need to be updated. Version 4.50 is used on most of our onboard administators. You should now have access to the OA through the ILO system, so login.
 
-10. Under "Active Onboard Administator", go to "Firmware Update". The firmware files are located in `/tmp/ILO` they are named `hpoa###.bin`.
+10. Under `Active Onboard Administator`, go to `Firmware Update`. The firmware files are located in `/tmp/ILO` they are named `hpoa###.bin`.
 
 11. If I recall correctly, it is necessary to upgrade the firmware to version 3.50 prior to updating to version 4.50. A direct upgrade from an older firmware version may fail.
 
