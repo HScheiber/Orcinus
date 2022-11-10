@@ -538,6 +538,48 @@ Output:
 
 To see an example of the output from a normal (new-style) node booting up, [click here](Node_Startup.txt "Node Startup"). 
 
+How to Configure Replacement Onboard Administators
+==============================
+
+1. Log into orca2 and access `/tmp/OA_Settings/`
+
+2. In this folder you'll find the onboard administator configurations used for previous onboard administator replacements.
+
+3. Create a new configuration file such as "Pack##_OA_Settings.cfg". The file name isn't important but make sure the file extension is `.cfg`.
+
+4. Compare the differences in settings between two previous examples. Adjust your new configuration file accordingly. You'll need to set some names and IP addresses for the rack and enclosure. 
+Make sure at least one admin user has access, e.g.
+```
+#Create Users
+ADD USER "admin"
+SET USER CONTACT "admin" ""
+SET USER FULLNAME "admin" ""
+SET USER ACCESS "admin" ADMINISTRATOR
+SET USER PASSWORD "admin" "iloadmin"
+ASSIGN SERVER 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,1A,2A,3A,4A,5A,6A,7A,8A,9A,10A,11A,12A,13A,14A,15A,16A,1B,2B,3B,4B,5B,6B,7B,8B,9B,10B,11B,12B,13B,14B,15B,16B "admin"
+ASSIGN INTERCONNECT 1,2,3,4,5,6,7,8 "admin"
+ASSIGN OA "admin"
+ENABLE USER "admin"
+```
+5. Once you've finished updating the OA configuration file, save and upload this file to a USB drive. If you already have an account with access to the replacement OA through valid login credentials, this is not required.
+
+6. In the server room: shut down current onboard administator and disconnect it.
+
+7. Install new onboard adminstator blade in its place. Check that it is working.
+
+8. a) Plug in the USB drive with the configuration file into the replaced onboard administator. On the front panel, navigate to the confguration update option. I can't remember the exact details here but you should be able to find a USB configuration update option through this interface.
+
+8. b) If you have access to the OA through the local filesystem, then log in through the ILO system. Under "enclosure" find "configuration scripts" and upload your configuration file.
+
+9. Once the configuration is updated, the OA firmware may also need to be updated. Version 4.50 is used on most of our onboard administators. You should now have access to the OA through the ILO system, so log in.
+
+10. Under "Active Onboard Administator", go to "Firmware Update". The firmware files are located in `/tmp/ILO` they are named `hpoa###.bin`.
+
+11. If I recall correctly, it is necessary to upgrade the firmware to version 3.50 prior to updating to version 4.50. A direct upgrade from an older firmware version may fail.
+
+12. Upload the firmware file. The OA will install the new firmware and restart automatically.
+
+
 Nodes Currently Down and Reasons
 ==============================
 
